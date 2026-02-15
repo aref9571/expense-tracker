@@ -11,7 +11,7 @@ class Expense:
     id : str = field(default_factory= lambda : str(uuid.uuid4()))
     created_at : str = field(default_factory= lambda : (datetime.now().isoformat()))
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {
             "title": self.title,
             "id" : self.id,
@@ -21,7 +21,7 @@ class Expense:
         }
 
     @classmethod
-    def from_dict(cls , data : dict):
+    def from_dict(cls , data : dict) -> 'Expense':
         return cls (
             title=data["title"],
             id = data["id"],
