@@ -1,9 +1,18 @@
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+*$py.class
+
+# Environments
 .venv/
-*.json
-*.env/
-*.idea/
-*data/
-data/expenses.json
+env/
+venv/
+ENV/
+
+# Data and Persistence
+data/*.json
+!data/.gitkeep
+
+# Testing
 .pytest_cache/
+.coverage
