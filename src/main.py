@@ -52,6 +52,9 @@ def main():
 
         elif choice == "3":
             expense_id_snipp = input("Enter Expense ID (first 8 chars): ").strip()
+            if not expense_id_snipp:
+                print("❌ Expense ID must not be empty!")
+                continue
             found = False
             for i in manager.get_expenses():
                 if i.id.startswith(expense_id_snipp):
@@ -76,6 +79,9 @@ def main():
 
         elif choice == "5":
             snippet = input("Enter Expense ID snippet to edit: ").strip()
+            if not snippet:
+                print("❌ Expense ID must not be empty!")
+                continue
             found_expense = None
 
             for i in manager.get_expenses():
