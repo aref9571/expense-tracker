@@ -1,36 +1,65 @@
-# 💰 Professional Expense Tracker CLI
+# Expense Tracker CLI
 
-A robust, object-oriented Command Line Interface (CLI) application built with Python to manage personal finances. This project demonstrates clean code principles, data persistence using JSON, and automated unit testing.
+A command-line application for recording personal expenses, written in Python. Expenses are kept in a JSON file, so they are still there the next time the program starts.
 
+## Features
 
+- Add, list, edit and delete expenses, each with a title, amount and category
+- Select an expense by the first characters of its ID instead of typing the full UUID
+- Total spending and a breakdown by category
+- Input validation: empty titles and categories are rejected, and amounts must be positive numbers
+- Unit tests for the business logic with pytest
 
-## 🚀 Features
+## Tech stack
 
-* **Full CRUD Lifecycle**: Create, Read, Update, and Delete expenses with ease.
-* **Smart Search**: Find and modify expenses using short ID snippets (UUID-based).
-* **Financial Insights**: View total spending and a detailed breakdown by category.
-* **Data Persistence**: All data is automatically saved to and loaded from a JSON database.
-* **Robust Validation**: Integrated error handling for numeric inputs and empty fields.
-* **Quality Assurance**: Comprehensive test suite powered by `pytest` ensuring 100% logic reliability.
+- Python 3.13
+- pytest
+- JSON file storage
 
-## 📁 Project Structure
+## Project structure
 
 ```text
-expense_tracker/
-├── data/               # Persistent JSON storage
-├── src/                # Source code
-│   ├── main.py         # Entry point (Presentation Layer)
-│   ├── models.py       # Data structures (Data Layer)
-│   ├── services.py     # Business logic (Service Layer)
-│   └── storage.py      # File I/O handling (Infrastructure Layer)
-├── tests/              # Automated test suite
-│   └── test_expenses.py
-├── conftest.py         # Pytest configuration
-├── requirements.txt    # Project dependencies
-└── README.md
-## 🛠️ Installation & Setup
+expense-tracker/
+├── src/
+│   ├── main.py        Command-line menu and input handling
+│   ├── models.py      Expense data class and JSON conversion
+│   ├── services.py    ExpenseManager with the business logic
+│   └── storage.py     Reading and writing data/expenses.json
+├── tests/
+│   └── expenses_test.py
+├── conftest.py        Adds src/ to the import path for the tests
+└── requirements.txt
+```
 
-1. **Clone the repository**:
-   ```bash
-   git clone [https://github.com/aref9571/expense-tracker.git](https://github.com/aref9571/expense-tracker.git)
-   cd expense-tracker
+The code is split into layers: `main.py` only talks to the user, `ExpenseManager` holds the rules, and `StorageHandler` is the only part that touches the file system.
+
+## Getting started
+
+```bash
+git clone https://github.com/aref9571/expense-tracker.git
+cd expense-tracker
+python -m venv .venv
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+Run the application from the repository root:
+
+```bash
+python src/main.py
+```
+
+Expenses are saved to `data/expenses.json`, which is created on first use and is not tracked by Git.
+
+## Running tests
+
+```bash
+pytest
+```
+
+The tests cover adding expenses and the total, deleting, editing, the category summary and saving and loading from the JSON file. GitHub Actions runs them on every push to `main`.
+
+## Limitations
+
+- Amounts are stored as floating-point numbers, so totals can show small rounding errors; a real finance application would use `Decimal` or integer cents.
+- There is one currency and no dates in the menu, even though each expense records when it was created.

@@ -16,3 +16,5 @@ data/*.json
 # Testing
 .pytest_cache/
 .coverage
+# IDE
+.idea/
